@@ -41,10 +41,17 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseDefaultFiles();
 
 app.UseCookiePolicy();
 
 app.UseSession();
+
+app.UseMiddleware<ValidationEndpointConventionBuilderExtensions>();
 
 app.MapControllerRoute(
     name: "areas",

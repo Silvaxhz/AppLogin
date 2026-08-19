@@ -35,6 +35,18 @@ namespace ProjetoNilson4.Areas.Colaborador.Controllers
         {
             Models.Colaborador colaboradorDB = _colaboradorRepository.Login(colaborador.Email, colaborador.Senha);
 
+            if(colaboradorDB.Email != null && colaboradorDB.Senha != null)
+            {
+                _loginColaborador.Login(colaboradorDB);
+               
+                return new RedirectResult(Url.Action(nameof(Painel)));
+            }
+            else
+            {
+                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
+                return View();
+            }
+
             if (colaboradorDB.Email != null && colaboradorDB.Senha != null &&
                 colaboradorDB.Tipo != ColaboradorTipoConstant.Comum)
             {
